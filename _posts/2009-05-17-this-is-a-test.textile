@@ -3,3 +3,8 @@ layout: post
 title: This is a test
 ---
 {{post.title}}
+
+This is your basic run-of-the-mill test set of posts. To my github account
+as to insure that i can understand jekyll a little better. 
+
+not that I really think i do yet. 
