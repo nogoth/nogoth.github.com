@@ -1,3 +1,10 @@
+#logo {
+	float: right;
+	width: 100%;
+}
+#logo a {text-decoration: none;}
+#logo h1 { text-align: center; }
+
 #content {
 	float: right;
 	width: 100%;
