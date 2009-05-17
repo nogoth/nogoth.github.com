@@ -2,7 +2,7 @@
 layout: post
 title: This is a test
 ---
-{{post.title}}
+{{page.title}}
 
 This is your basic run-of-the-mill test set of posts. To my github account
 as to insure that i can understand jekyll a little better. 
