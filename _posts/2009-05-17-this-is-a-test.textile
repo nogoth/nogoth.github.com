@@ -2,9 +2,7 @@
 layout: post
 title: This is a test
 ---
-{{ page.title }}
 
-This is your basic run-of-the-mill test set of posts. To my github account
-as to insure that i can understand jekyll a little better. 
+Someone really needs to get a better jekyll generator. Something that stubs
+up the skeletons and some of the files.
 
-not that I really think i do yet. 

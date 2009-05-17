@@ -2,7 +2,7 @@
 	float: right;
 	width: 100%;
 }
-#logo a {text-decoration: none;}
+#logo a {text-decoration: none; color: red;}
 #logo h1 { text-align: center; }
 
 #content {
