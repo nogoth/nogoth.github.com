@@ -1,0 +1,8 @@
+---
+layout: post
+title: Yaml::Syck
+---
+Actually to read options I'm going start using yaml::syck found here
+http://search.cpan.org/~audreyt/YAML-Syck-1.07/lib/YAML/Syck.pm
+
+It has a LoadFile message which would be much more elegant than my hack
