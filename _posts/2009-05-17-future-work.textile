@@ -1,0 +1,9 @@
+---
+layout: post
+title: Future work
+---
+Game plan for the short term is to take yasnippets and craft up a template
+that i can use to make new entries in the blog as well as the dates that 
+they are supposed to have as part of their name. 
+ Of course then I'll have to post that project, if i can, to github for other
+people using jekyll to have at their fingertips. 
