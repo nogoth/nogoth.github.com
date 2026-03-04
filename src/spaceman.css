@@ -20,7 +20,6 @@ body {
   background-size: 30px 30px;
   color: var(--spaceman-surface);
   font-family: 'Courier New', Courier, monospace;
-  text-transform: uppercase;
 }
 
 main {
