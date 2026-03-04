@@ -180,8 +180,26 @@ docs/discovery/
 ├── DECISION_MATRIX.md (compare approaches)
 ├── FEASIBILITY_ANALYSIS.md (why simplified is better)
 ├── NOGOTH_GITHUB_WORKFLOWS_PLAN.md (original complex approach)
-└── NOGOTH_SIMPLE_VUE_APPROACH.md (recommended simplified approach)
+├── NOGOTH_SIMPLE_VUE_APPROACH.md (recommended simplified approach)
+└── TAG_FILTERING_FEATURE.md (future feature request - tag-based filtering)
 ```
+
+---
+
+### 5. **TAG_FILTERING_FEATURE.md** (3KB) 📋
+**What**: Feature request for tag-based article filtering  
+**Status**: Requested, awaiting implementation  
+**Complexity**: Low-Medium (1-2 hours)
+
+**Contents**:
+- Feature overview and desired behavior
+- Implementation notes for affected components
+- Logic for combining search and tag filters
+- Questions to resolve (search interaction, visual indicators, reset behavior)
+- Potential enhancements (tag clouds, multiple selections)
+- Implementation checklist
+
+**TL;DR**: Click a tag on an article → sidebar filters to show only articles with that tag
 
 ---
 
