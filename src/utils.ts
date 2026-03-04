@@ -19,7 +19,7 @@ export interface Article {
  */
 export async function loadArticles(): Promise<Article[]> {
   // Dynamically import all .md files from articles directory
-  const modules = import.meta.glob('/articles/*.md', { as: 'raw' })
+  const modules = import.meta.glob('/articles/*.md', { query: '?raw', import: 'default' })
   const articles: Article[] = []
 
   for (const [path, content] of Object.entries(modules)) {

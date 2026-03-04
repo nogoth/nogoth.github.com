@@ -5,11 +5,6 @@
         <h3>Contact</h3>
         <ul>
           <li>
-            <a href="https://twitter.com/nogoth" target="_blank" rel="noopener noreferrer">
-              Twitter: @nogoth
-            </a>
-          </li>
-          <li>
             <a href="mailto:livingood@gmail.com">Email: livingood@gmail.com</a>
           </li>
         </ul>

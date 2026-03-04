@@ -1,5 +1,5 @@
 <template>
-  <div v-if="article" class="article-container">
+  <div v-if="!loading && article" class="article-container">
     <header class="article-header">
       <h1>{{ article.title }}</h1>
       <p class="meta">
@@ -19,7 +19,7 @@
     </footer>
   </div>
 
-  <div v-else class="not-found">
+  <div v-else-if="!loading" class="not-found">
     <h2>Article not found</h2>
     <p>Sorry, we couldn't find that article.</p>
     <router-link to="/">← Back to Articles</router-link>
@@ -34,10 +34,12 @@ import type { Article } from '@/utils'
 
 const route = useRoute()
 const article = ref<Article | null>(null)
+const loading = ref(true)
 
 onMounted(async () => {
   const slug = route.params.slug as string
   article.value = await getArticleBySlug(slug)
+  loading.value = false
 })
 </script>
 
