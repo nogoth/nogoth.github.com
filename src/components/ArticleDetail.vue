@@ -6,9 +6,14 @@
         Published {{ formatDate(article.date) }} • {{ getReadTime(article.content) }} min read
       </p>
       <div v-if="article.tags?.length" class="tags">
-        <span v-for="tag in article.tags" :key="tag" class="tag">
+        <button
+          v-for="tag in article.tags"
+          :key="tag"
+          class="tag"
+          @click="emit('select-tag', tag)"
+        >
           {{ tag }}
-        </span>
+        </button>
       </div>
     </header>
 
@@ -36,6 +41,9 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+const emit = defineEmits<{
+  'select-tag': [tag: string]
+}>()
 const article = ref<Article | null>(null)
 const loading = ref(true)
 
@@ -88,6 +96,17 @@ watch(() => props.slug, loadArticle)
   border-radius: 20px;
   font-size: 0.85rem;
   color: #555;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.tag:hover {
+  background: #007bff;
+  color: white;
+  border-color: #007bff;
+  transform: translateY(-2px);
 }
 
 .article-content {

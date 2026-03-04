@@ -12,6 +12,16 @@
         />
       </div>
 
+      <div v-if="activeTag" class="tag-filter">
+        <span class="tag-filter-label">Showing articles tagged:</span>
+        <div class="tag-filter-badge">
+          {{ activeTag }}
+          <button class="tag-filter-close" @click="clearTag" title="Clear filter">
+            ✕
+          </button>
+        </div>
+      </div>
+
       <div v-if="filteredArticles.length === 0" class="no-articles">
         <p>No articles found</p>
       </div>
@@ -31,7 +41,12 @@
     </aside>
 
     <main class="article-main">
-      <ArticleDetail v-if="activeSlug" :slug="activeSlug" :key="activeSlug" />
+      <ArticleDetail
+        v-if="activeSlug"
+        :slug="activeSlug"
+        :key="activeSlug"
+        @select-tag="selectTag"
+      />
     </main>
   </div>
 </template>
@@ -45,6 +60,7 @@ import type { Article } from '@/utils'
 const articles = ref<Article[]>([])
 const search = ref('')
 const activeSlug = ref('')
+const activeTag = ref<string | null>(null)
 
 onMounted(async () => {
   articles.value = await loadArticles()
@@ -56,12 +72,35 @@ onMounted(async () => {
 })
 
 const filteredArticles = computed(() => {
-  return articles.value.filter(
-    a =>
+  return articles.value.filter(a => {
+    // Filter by search
+    const matchesSearch =
       a.title.toLowerCase().includes(search.value.toLowerCase()) ||
       a.excerpt.toLowerCase().includes(search.value.toLowerCase())
-  )
+    
+    // Filter by tag
+    const matchesTag = activeTag.value
+      ? a.tags?.includes(activeTag.value)
+      : true
+    
+    return matchesSearch && matchesTag
+  })
 })
+
+function selectTag(tag: string) {
+  // Toggle tag filter: click same tag to deselect
+  if (activeTag.value === tag) {
+    activeTag.value = null
+  } else {
+    activeTag.value = tag
+    // Clear search when filtering by tag
+    search.value = ''
+  }
+}
+
+function clearTag() {
+  activeTag.value = null
+}
 </script>
 
 <style scoped>
@@ -103,6 +142,48 @@ const filteredArticles = computed(() => {
 .search-input:focus {
   outline: none;
   border-color: #007bff;
+}
+
+.tag-filter {
+  margin-bottom: 1rem;
+  padding: 0.75rem;
+  background: #e8f4ff;
+  border: 1px solid #007bff;
+  border-radius: 4px;
+}
+
+.tag-filter-label {
+  display: block;
+  font-size: 0.85rem;
+  color: #0056b3;
+  margin-bottom: 0.5rem;
+}
+
+.tag-filter-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #007bff;
+  color: white;
+  padding: 0.4rem 0.75rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.tag-filter-close {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+  line-height: 1;
+  transition: opacity 0.2s;
+}
+
+.tag-filter-close:hover {
+  opacity: 0.7;
 }
 
 .articles-nav {
