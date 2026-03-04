@@ -31,7 +31,7 @@
     </aside>
 
     <main class="article-main">
-      <ArticleDetail v-if="activeSlug" :key="activeSlug" />
+      <ArticleDetail v-if="activeSlug" :slug="activeSlug" :key="activeSlug" />
     </main>
   </div>
 </template>

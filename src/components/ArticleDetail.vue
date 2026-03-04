@@ -27,20 +27,27 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, onMounted, watch } from 'vue'
 import { getArticleBySlug, formatDate, getReadTime } from '@/utils'
 import type { Article } from '@/utils'
 
-const route = useRoute()
+interface Props {
+  slug: string
+}
+
+const props = defineProps<Props>()
 const article = ref<Article | null>(null)
 const loading = ref(true)
 
-onMounted(async () => {
-  const slug = route.params.slug as string
-  article.value = await getArticleBySlug(slug)
+async function loadArticle() {
+  loading.value = true
+  article.value = await getArticleBySlug(props.slug)
   loading.value = false
-})
+}
+
+onMounted(loadArticle)
+
+watch(() => props.slug, loadArticle)
 </script>
 
 <style scoped>
