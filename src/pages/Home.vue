@@ -17,33 +17,31 @@
       </div>
 
       <nav v-else class="articles-nav">
-        <router-link
+        <button
           v-for="article in filteredArticles"
           :key="article.slug"
-          :to="`/article/${article.slug}`"
           class="article-link"
           :class="{ active: activeSlug === article.slug }"
+          @click="activeSlug = article.slug"
         >
           <div class="article-link-title">{{ article.title }}</div>
           <div class="article-link-date">{{ formatDate(article.date) }}</div>
-        </router-link>
+        </button>
       </nav>
     </aside>
 
     <main class="article-main">
-      <ArticleDetail :key="activeSlug" />
+      <ArticleDetail v-if="activeSlug" :key="activeSlug" />
     </main>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { ref, computed, onMounted } from 'vue'
 import { loadArticles, formatDate } from '@/utils'
 import ArticleDetail from '@/components/ArticleDetail.vue'
 import type { Article } from '@/utils'
 
-const route = useRoute()
 const articles = ref<Article[]>([])
 const search = ref('')
 const activeSlug = ref('')
@@ -51,24 +49,11 @@ const activeSlug = ref('')
 onMounted(async () => {
   articles.value = await loadArticles()
   
-  // If no article is selected, auto-load the latest one
-  const slugFromRoute = route.params.slug as string | undefined
-  if (slugFromRoute) {
-    activeSlug.value = slugFromRoute
-  } else if (articles.value.length > 0) {
+  // Auto-load the latest article on mount
+  if (articles.value.length > 0) {
     activeSlug.value = articles.value[0].slug
   }
 })
-
-// Watch route changes to update active article
-watch(
-  () => route.params.slug,
-  (newSlug) => {
-    if (newSlug) {
-      activeSlug.value = newSlug as string
-    }
-  }
-)
 
 const filteredArticles = computed(() => {
   return articles.value.filter(
@@ -128,12 +113,19 @@ const filteredArticles = computed(() => {
 
 .article-link {
   display: block;
+  width: 100%;
   padding: 0.75rem;
   border-left: 3px solid transparent;
   background: #f9f9f9;
+  border: none;
+  border-left: 3px solid transparent;
   border-radius: 4px;
+  text-align: left;
   text-decoration: none;
   color: #333;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: pointer;
   transition: all 0.2s;
 }
 
