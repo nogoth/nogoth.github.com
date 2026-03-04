@@ -1,8 +1,8 @@
 # Tag Filtering Feature for Nogoth Blog
 
 **Date**: 2026-03-04  
-**Status**: Requested  
-**Priority**: Future enhancement  
+**Status**: ✅ Implemented (commit 131f1e9)  
+**Priority**: Complete  
 **Complexity**: Low-Medium
 
 ## Feature Request
@@ -137,5 +137,44 @@ const filteredArticles = computed(() => {
 ---
 
 **Requested by**: User  
-**Status**: Awaiting implementation  
-**Blockers**: None - ready to implement whenever
+**Status**: ✅ Complete  
+**Implementation**: Commit 131f1e9
+
+## Implementation Details (What Was Done)
+
+### Changes to Home.vue
+- Added `activeTag` ref to track selected tag filter
+- Updated `filteredArticles` computed property to filter by both search term AND tag (AND logic)
+- Added `selectTag(tag)` function: toggles tag selection (click same tag to deselect)
+- Added `clearTag()` function: resets tag filter to null
+- Added tag filter indicator UI showing active tag in blue badge with × close button
+- Passes selectTag via `@select-tag` event to ArticleDetail
+
+### Changes to ArticleDetail.vue
+- Changed tags from `<span>` elements to `<button>` elements
+- Added `emit` for 'select-tag' event
+- Click any tag emits `selectTag(tag)` back to Home.vue
+- Updated `.tag` CSS: added border, cursor: pointer, transition, and hover effects
+- Hover effect: blue background, white text, slight upward transform
+
+### Behavior
+1. User reads article and sees tags
+2. Clicks a tag → Home.vue receives event, sets activeTag, sidebar filters
+3. Sidebar shows only articles containing that tag
+4. Tag filter badge shows active tag with × button
+5. Click tag again OR × button to clear filter
+6. Search is cleared when tag filter is applied (prevents confusion)
+7. Search + tag filters work together (AND logic)
+
+### Design Decisions Made
+- **AND logic**: Search results must match BOTH search term AND selected tag
+- **Toggle behavior**: Clicking same tag again deselects it
+- **Auto-clear search**: When selecting a tag, search input clears to avoid confusion
+- **Visual indicator**: Blue badge shows active filter clearly
+
+---
+
+**Requested by**: User  
+**Implemented**: 2026-03-04  
+**Implementation Time**: ~30 minutes  
+**Status**: ✅ Complete
