@@ -6,8 +6,6 @@ tags: [vue, blog, optimization]
 author: nogoth
 ---
 
-# Shipping a Modern Blog: Bug Fixes and Tag Filtering
-
 ## What We Found
 
 The blog wasn't building. Vite 7.3.1 was calling a non-existent crypto.hash() function. We downgraded to 7.3.0 and fixed it. But that revealed bigger problems.

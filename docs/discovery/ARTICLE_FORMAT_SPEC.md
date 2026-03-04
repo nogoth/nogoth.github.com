@@ -146,6 +146,8 @@ author: nogoth
 
 **Everything after the closing `---`** is treated as article content in **Markdown format**.
 
+**Important**: Do NOT start your content with `# Article Title`. The title comes from the frontmatter and is displayed automatically. Starting with a heading creates a duplicate title. Start with your first section heading (## Section Name) or the first paragraph of content.
+
 ### Example
 
 ```markdown
@@ -156,8 +158,6 @@ excerpt: Brief description
 tags: [tag1, tag2]
 author: nogoth
 ---
-
-# Article Title
 
 Article content starts here. This is the first paragraph.
 
@@ -303,8 +303,6 @@ excerpt: A deep dive into Vue 3's Composition API and how to use it effectively
 tags: [vue, javascript, composition-api, tutorial]
 author: nogoth
 ---
-
-# Understanding Vue.js Composition API
 
 The Composition API is a new way to organize code in Vue 3.
 
