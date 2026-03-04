@@ -87,7 +87,15 @@ This directory contains analysis, plans, and recommendations for modernizing the
 
 ## Quick Start: Which Should I Read?
 
-### If you're in a hurry:
+### If you want to write an article:
+1. ✅ Read: **ARTICLE_FORMAT_SPEC.md** (10 min)
+   - Learn the file naming convention
+   - Understand YAML frontmatter fields
+   - See examples and quick reference
+2. ✅ Create: New markdown file in `articles/`
+3. ✅ Commit: Push to GitHub (auto-deployed)
+
+### If you're in a hurry (for architecture):
 1. ✅ Read: **DECISION_MATRIX.md** (5 min read)
 2. ✅ Decision: Pick "Simplified" or "Original"
 3. ✅ Start: Follow the implementation guide
@@ -181,7 +189,8 @@ docs/discovery/
 ├── FEASIBILITY_ANALYSIS.md (why simplified is better)
 ├── NOGOTH_GITHUB_WORKFLOWS_PLAN.md (original complex approach)
 ├── NOGOTH_SIMPLE_VUE_APPROACH.md (recommended simplified approach)
-└── TAG_FILTERING_FEATURE.md (future feature request - tag-based filtering)
+├── TAG_FILTERING_FEATURE.md (future feature request - tag-based filtering)
+└── ARTICLE_FORMAT_SPEC.md (article format and field specification)
 ```
 
 ---
@@ -200,6 +209,25 @@ docs/discovery/
 - Implementation checklist
 
 **TL;DR**: Click a tag on an article → sidebar filters to show only articles with that tag
+
+---
+
+### 6. **ARTICLE_FORMAT_SPEC.md** (10KB) 📝
+**What**: Complete specification for article format and structure  
+**When to read**: Before writing or editing articles  
+**Status**: Established (all current articles follow this spec)
+
+**Contents**:
+- File naming convention: `YYYY-MM-DD-slug.md`
+- YAML frontmatter specification (required/optional fields)
+- Complete Markdown syntax guide (headings, code, links, tables, etc.)
+- Field details: `title`, `date`, `excerpt`, `tags`, `author`
+- Real examples from existing articles
+- Common article patterns
+- Validation rules
+- Quick reference guide
+
+**TL;DR**: Articles are Markdown files with YAML frontmatter. Start with `---title: ...` and required fields, then write Markdown content.
 
 ---
 
@@ -287,9 +315,11 @@ The original plan has more code, more scripts, more workflows. But that doesn't 
 | FEASIBILITY_ANALYSIS.md | 16KB | 10 min | Medium |
 | NOGOTH_SIMPLE_VUE_APPROACH.md | 26KB | 15 min | Low |
 | DECISION_MATRIX.md | 14KB | 5 min | Medium |
-| README.md (this file) | 5KB | 5 min | Low |
+| TAG_FILTERING_FEATURE.md | 3KB | 3 min | Low |
+| ARTICLE_FORMAT_SPEC.md | 10KB | 10 min | Low |
+| README.md (this file) | 10KB | 5 min | Low |
 
-**Total**: 93KB of documentation, analysis, and step-by-step guides
+**Total**: 111KB of documentation, analysis, guides, and specifications
 
 ---
 
