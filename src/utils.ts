@@ -19,15 +19,19 @@ export interface Article {
  */
 export async function loadArticles(): Promise<Article[]> {
   // Dynamically import all .md files from articles directory
-  const modules = import.meta.glob('/articles/*.md', { query: '?raw', import: 'default' })
+  const modules = import.meta.glob('../articles/*.md', { query: '?raw', import: 'default' })
   const articles: Article[] = []
 
-  for (const [path, content] of Object.entries(modules)) {
-    // Extract slug from path (e.g., "/articles/2009-05-17-test.md" → "2009-05-17-test")
+  for (const [path, loader] of Object.entries(modules)) {
+    // Extract slug from path (e.g., "../articles/2009-05-17-test.md" → "2009-05-17-test")
     const slug = path.match(/\/([^/]+)\.md$/)?.[1] || ''
 
+    // Load the module (it's a lazy-loaded function)
+    const content = await (loader as () => Promise<{ default: string }>)()
+    const fileContent = typeof content === 'string' ? content : (content as any).default
+
     // Parse frontmatter and content
-    const { data, content: body } = matter(content as string)
+    const { data, content: body } = matter(fileContent)
 
     // Convert Markdown to HTML
     const html = sanitizeHtml(await marked(body), {

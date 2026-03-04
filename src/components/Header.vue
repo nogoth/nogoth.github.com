@@ -6,7 +6,6 @@
       </h1>
       <nav class="nav">
         <router-link to="/">Home</router-link>
-        <a href="https://twitter.com/nogoth" target="_blank" rel="noopener noreferrer">Twitter</a>
         <a href="mailto:livingood@gmail.com">Email</a>
       </nav>
     </div>
