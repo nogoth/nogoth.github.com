@@ -200,7 +200,7 @@ Visual features:
   - Installs dependencies
   - Builds the site
   - Deploys to GitHub Pages
-- Site live at: https://nogoth.github.com/
+- Site live at: https://nogoth.github.io/
 
 ### To Deploy
 ```bash
@@ -246,7 +246,7 @@ git push origin feat/modernize-to-vue
 
 2. **GitHub Actions deploys automatically**
 
-3. **Site appears at**: https://nogoth.github.com/
+3. **Site appears at**: https://nogoth.github.io/
 
 4. **Start writing articles** using the guide in CONTRIBUTING.md
 
