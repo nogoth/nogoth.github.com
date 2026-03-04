@@ -82,8 +82,13 @@ export async function loadArticles(): Promise<Article[]> {
     }
   }
 
-  // Sort by date descending (newest first)
-  return articles.sort((a, b) => b.date.getTime() - a.date.getTime())
+  // Sort by date descending (newest first), then by slug for stable ordering
+  return articles.sort((a, b) => {
+    const dateDiff = b.date.getTime() - a.date.getTime()
+    if (dateDiff !== 0) return dateDiff
+    // If dates are equal, sort by slug (reverse order for stability)
+    return b.slug.localeCompare(a.slug)
+  })
 }
 
 /**
