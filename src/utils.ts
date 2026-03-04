@@ -1,6 +1,4 @@
 import { marked } from 'marked'
-import matter from 'gray-matter'
-import sanitizeHtml from 'sanitize-html'
 
 export interface Article {
   slug: string
@@ -14,53 +12,74 @@ export interface Article {
 }
 
 /**
+ * Simple browser-compatible frontmatter parser
+ * Parses YAML-like frontmatter between --- markers
+ */
+function parseFrontmatter(content: string): { data: Record<string, any>; content: string } {
+  const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/)
+  
+  if (!match) {
+    return { data: {}, content }
+  }
+
+  const [, frontmatterStr, body] = match
+  const data: Record<string, any> = {}
+
+  // Parse simple YAML frontmatter
+  frontmatterStr.split('\n').forEach(line => {
+    const colonIndex = line.indexOf(':')
+    if (colonIndex > -1) {
+      const key = line.slice(0, colonIndex).trim()
+      let value = line.slice(colonIndex + 1).trim()
+
+      // Parse arrays like [tag1, tag2]
+      if (value.startsWith('[') && value.endsWith(']')) {
+        value = value.slice(1, -1).split(',').map(v => v.trim())
+      }
+
+      data[key] = value
+    }
+  })
+
+  return { data, content: body }
+}
+
+/**
  * Load all articles from articles/*.md files
  * Uses Vite's import.meta.glob for dynamic imports
  */
 export async function loadArticles(): Promise<Article[]> {
   // Dynamically import all .md files from articles directory
-  const modules = import.meta.glob('../articles/*.md', { query: '?raw', import: 'default' })
+  const modules = import.meta.glob('../articles/*.md', { query: '?raw', import: 'default', eager: true })
   const articles: Article[] = []
 
-  for (const [path, loader] of Object.entries(modules)) {
-    // Extract slug from path (e.g., "../articles/2009-05-17-test.md" → "2009-05-17-test")
-    const slug = path.match(/\/([^/]+)\.md$/)?.[1] || ''
+  for (const [path, module] of Object.entries(modules)) {
+    try {
+      // Extract slug from path (e.g., "../articles/2009-05-17-test.md" → "2009-05-17-test")
+      const slug = path.match(/\/([^/]+)\.md$/)?.[1] || ''
 
-    // Load the module (it's a lazy-loaded function)
-    const content = await (loader as () => Promise<{ default: string }>)()
-    const fileContent = typeof content === 'string' ? content : (content as any).default
+      // With eager: true, modules are already loaded
+      const fileContent = typeof module === 'string' ? module : (module as any).default
 
-    // Parse frontmatter and content
-    const { data, content: body } = matter(fileContent)
+      // Parse frontmatter and content using browser-compatible parser
+      const { data, content: body } = parseFrontmatter(fileContent)
 
-    // Convert Markdown to HTML
-    const html = sanitizeHtml(await marked(body), {
-      allowedTags: [
-        'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-        'p', 'strong', 'em', 'u', 'del',
-        'ul', 'ol', 'li',
-        'a', 'blockquote',
-        'code', 'pre',
-        'br', 'hr',
-        'img', 'table', 'thead', 'tbody', 'tr', 'th', 'td'
-      ],
-      allowedAttributes: {
-        'a': ['href', 'title'],
-        'img': ['src', 'alt', 'title'],
-        'table': ['border']
-      }
-    })
+      // Convert Markdown to HTML
+      const html = await marked(body)
 
-    articles.push({
-      slug,
-      title: data.title || 'Untitled',
-      date: new Date(data.date || Date.now()),
-      excerpt: data.excerpt || body.slice(0, 150),
-      content: body,
-      html,
-      tags: data.tags || [],
-      author: data.author || 'nogoth'
-    })
+      articles.push({
+        slug,
+        title: data.title || 'Untitled',
+        date: new Date(data.date || Date.now()),
+        excerpt: data.excerpt || body.slice(0, 150),
+        content: body,
+        html,
+        tags: data.tags || [],
+        author: data.author || 'nogoth'
+      })
+    } catch (error) {
+      console.error('Error loading article from', path, error)
+    }
   }
 
   // Sort by date descending (newest first)
