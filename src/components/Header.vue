@@ -83,6 +83,11 @@
   .nav {
     gap: 1rem;
     font-size: 0.9rem;
+    width: auto;
+  }
+
+  .nav a {
+    width: auto;
   }
 }
 </style>
