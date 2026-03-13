@@ -1,7 +1,7 @@
 <template>
   <div class="home-container">
     <aside class="articles-sidebar">
-      <h2>Articles</h2>
+      <SidebarNav />
 
       <div class="search-container">
         <input
@@ -55,6 +55,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { loadArticles, formatDate } from '@/utils'
 import ArticleDetail from '@/components/ArticleDetail.vue'
+import SidebarNav from '@/components/SidebarNav.vue'
 import type { Article } from '@/utils'
 
 const articles = ref<Article[]>([])
@@ -117,12 +118,6 @@ function clearTag() {
 .articles-sidebar {
   border-right: 2px solid #eee;
   padding-right: 2rem;
-}
-
-.articles-sidebar h2 {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-size: 1.3rem;
 }
 
 .search-container {
@@ -269,10 +264,6 @@ function clearTag() {
     padding: 1rem;
     padding-right: 1rem;
     margin-bottom: 1rem;
-  }
-
-  .articles-sidebar h2 {
-    margin-bottom: 0.5rem;
   }
 
   .articles-nav {

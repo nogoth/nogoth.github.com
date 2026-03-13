@@ -1,6 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from './pages/Home.vue'
 import Article from './pages/Article.vue'
+import Repositories from './pages/Repositories.vue'
+import Resume from './pages/Resume.vue'
 import NotFound from './pages/NotFound.vue'
 
 const routes = [
@@ -8,6 +10,16 @@ const routes = [
     path: '/',
     component: Home,
     meta: { title: 'Nogoth - Blog' }
+  },
+  {
+    path: '/repositories',
+    component: Repositories,
+    meta: { title: 'Nogoth - Repositories' }
+  },
+  {
+    path: '/resume',
+    component: Resume,
+    meta: { title: 'Nogoth - Resume' }
   },
   {
     path: '/article/:slug',
