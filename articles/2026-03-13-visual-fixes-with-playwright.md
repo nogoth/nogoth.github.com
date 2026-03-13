@@ -1,6 +1,7 @@
 ---
 title: Visual Fixes with Playwright Screenshots
 date: 2026-03-13
+time: 13:29
 excerpt: Used npx and playwright-cli to catch and fix stretched mobile buttons and leftover debug labels, verifying each change with real browser screenshots.
 tags: [css, playwright, mobile, ux]
 author: nogoth

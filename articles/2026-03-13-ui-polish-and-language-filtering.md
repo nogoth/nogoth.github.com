@@ -1,6 +1,7 @@
 ---
 title: UI Polish and Language Filtering
 date: 2026-03-13
+time: 10:37
 excerpt: Cleaned up sidebar layout jank, aligned content panels, and added multi-language filtering to the repositories page.
 tags: [vue, css, ux]
 author: nogoth

@@ -1,6 +1,7 @@
 ---
 title: The One-Day-Off Date Bug
 date: 2026-03-13
+time: 13:38
 excerpt: How a subtle JavaScript timezone quirk made today's article dates show up as yesterday.
 tags: [javascript, bugs, timezone]
 author: nogoth

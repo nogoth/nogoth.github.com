@@ -71,7 +71,7 @@ export async function loadArticles(): Promise<Article[]> {
         slug,
         title: data.title || 'Untitled',
         date: data.date
-          ? new Date(data.date + 'T00:00:00')  // Parse as local time, not UTC
+          ? new Date(data.date + 'T' + (data.time || '00:00') + ':00')  // Parse as local time, not UTC
           : new Date(),
         excerpt: data.excerpt || body.slice(0, 150),
         content: body,
@@ -88,8 +88,8 @@ export async function loadArticles(): Promise<Article[]> {
   return articles.sort((a, b) => {
     const dateDiff = b.date.getTime() - a.date.getTime()
     if (dateDiff !== 0) return dateDiff
-    // If dates are equal, sort by slug (reverse order for stability)
-    return b.slug.localeCompare(a.slug)
+    // If dates are equal, sort by slug alphabetically for stability
+    return a.slug.localeCompare(b.slug)
   })
 }
 
