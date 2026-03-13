@@ -70,7 +70,9 @@ export async function loadArticles(): Promise<Article[]> {
       articles.push({
         slug,
         title: data.title || 'Untitled',
-        date: new Date(data.date || Date.now()),
+        date: data.date
+          ? new Date(data.date + 'T00:00:00')  // Parse as local time, not UTC
+          : new Date(),
         excerpt: data.excerpt || body.slice(0, 150),
         content: body,
         html,

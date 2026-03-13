@@ -1,0 +1,96 @@
+- generic [ref=e2]:
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - heading "Nogoth" [level=1] [ref=e5]:
+        - link "Nogoth" [ref=e6] [cursor=pointer]:
+          - /url: /
+      - navigation [ref=e7]:
+        - link "Home" [ref=e8] [cursor=pointer]:
+          - /url: /
+        - link "Email" [ref=e9] [cursor=pointer]:
+          - /url: mailto:livingood@gmail.com
+  - main [ref=e10]:
+    - generic [ref=e11]:
+      - complementary [ref=e12]:
+        - navigation [ref=e13]:
+          - link "Articles" [ref=e14] [cursor=pointer]:
+            - /url: /
+          - link "Repositories" [ref=e15] [cursor=pointer]:
+            - /url: /repositories
+          - link "Resume" [ref=e16] [cursor=pointer]:
+            - /url: /resume
+        - textbox "Search articles..." [ref=e18]
+        - navigation [ref=e19]:
+          - button "Visual Fixes with Playwright Screenshots March 13, 2026" [ref=e20] [cursor=pointer]:
+            - generic [ref=e21]: Visual Fixes with Playwright Screenshots
+            - generic [ref=e22]: March 13, 2026
+          - button "UI Polish and Language Filtering March 13, 2026" [ref=e23] [cursor=pointer]:
+            - generic [ref=e24]: UI Polish and Language Filtering
+            - generic [ref=e25]: March 13, 2026
+          - button "The Nogoth Blog Tech Stack March 4, 2026" [ref=e26] [cursor=pointer]:
+            - generic [ref=e27]: The Nogoth Blog Tech Stack
+            - generic [ref=e28]: March 4, 2026
+          - 'button "Shipping a Modern Blog: Bug Fixes and Tag Filtering March 4, 2026" [ref=e29] [cursor=pointer]':
+            - generic [ref=e30]: "Shipping a Modern Blog: Bug Fixes and Tag Filtering"
+            - generic [ref=e31]: March 4, 2026
+      - main [ref=e32]:
+        - generic [ref=e33]:
+          - generic [ref=e34]:
+            - heading "Visual Fixes with Playwright Screenshots" [level=1] [ref=e35]
+            - paragraph [ref=e36]: Published March 13, 2026 • 1 min read
+            - generic [ref=e37]:
+              - button "css" [ref=e38] [cursor=pointer]
+              - button "playwright" [ref=e39] [cursor=pointer]
+              - button "mobile" [ref=e40] [cursor=pointer]
+              - button "ux" [ref=e41] [cursor=pointer]
+          - article [ref=e42]:
+            - paragraph [ref=e43]:
+              - text: The mobile nav buttons were stretching edge-to-edge because the spaceman.css theme forces
+              - code [ref=e44]: .nav
+              - text: and
+              - code [ref=e45]: .nav a
+              - text: to
+              - code [ref=e46]: "width: 100%"
+              - text: on small screens. That made Home and Email look like embedded bars instead of discrete buttons. A scoped override in Header.vue set both to
+              - code [ref=e47]: "width: auto"
+              - text: ", and we confirmed the fix by resizing a playwright-cli browser to 375×812 and screenshotting it—buttons now size to their content with visible header background around them. The whole cycle was: make the CSS change, run"
+              - code [ref=e48]: npx @playwright/cli screenshot
+              - text: ", look at the actual pixels. No guessing."
+            - paragraph [ref=e49]:
+              - text: The second fix was subtler. The
+              - code [ref=e50]: ::before
+              - text: pseudo-elements on
+              - code [ref=e51]: .articles-container
+              - text: and
+              - code [ref=e52]: .article-container
+              - text: "were rendering hardcoded debug labels—\"REGISTRY: NOGOTH-BLOG-2026\" and \"ARTICLE VIEW: WADA-MOD-2026\"—text that was never meant for visitors. A playwright snapshot made the extraneous strings obvious, sitting right above the content areas. The fix was two lines: swap the label strings for empty"
+              - code [ref=e53]: "content: ''"
+              - text: values, keeping the decorative header bars intact while removing the debug noise. We captured the npx gotchas we hit along the way—correct package is
+              - code [ref=e54]: "@playwright/cli"
+              - text: not
+              - code [ref=e55]: playwright-cli
+              - text: ", Firefox is required,"
+              - code [ref=e56]: eval "window.scrollTo()"
+              - text: beats flaky mousewheel commands—in an AGENT.md so future work doesn't repeat the same mistakes.
+          - link "← Back to Articles" [ref=e58] [cursor=pointer]:
+            - /url: /
+  - contentinfo [ref=e59]:
+    - generic [ref=e60]:
+      - generic [ref=e61]:
+        - heading "Contact" [level=3] [ref=e62]
+        - list [ref=e63]:
+          - listitem [ref=e64]:
+            - 'link "Email: livingood@gmail.com" [ref=e65] [cursor=pointer]':
+              - /url: mailto:livingood@gmail.com
+      - generic [ref=e66]:
+        - heading "About" [level=3] [ref=e67]
+        - paragraph [ref=e68]: A modern blog built with Vue.js, exploring thoughts on code and technology.
+      - generic [ref=e69]:
+        - paragraph [ref=e70]:
+          - text: Made with
+          - link "Vue.js" [ref=e71] [cursor=pointer]:
+            - /url: https://vuejs.org
+          - text: •
+          - link "Source Code" [ref=e72] [cursor=pointer]:
+            - /url: https://github.com/nogoth/nogoth.github.com
+        - paragraph [ref=e73]: © 2026 Nogoth. All rights reserved.
