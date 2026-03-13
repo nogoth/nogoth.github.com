@@ -13,13 +13,14 @@ import { RouterLink } from 'vue-router'
 <style scoped>
 .sidebar-nav {
   display: flex;
+  flex-direction: column;
   gap: 0.5rem;
   margin-bottom: 1.5rem;
   width: 100%;
 }
 
 .nav-button {
-  flex: 1;
+  width: 100%;
   padding: 0.75rem 1rem;
   text-align: center;
   text-decoration: none;
