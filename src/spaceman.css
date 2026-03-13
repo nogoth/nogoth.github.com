@@ -145,11 +145,11 @@ a:hover {
 }
 
 .articles-container::before {
-  content: 'REGISTRY: NOGOTH-BLOG-2026';
+  content: '';
 }
 
 .article-container::before {
-  content: 'ARTICLE VIEW: WADA-MOD-2026';
+  content: '';
 }
 
 .articles-container > *:first-child,
