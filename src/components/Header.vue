@@ -63,8 +63,9 @@
 
 @media (max-width: 768px) {
   .header {
-    padding: 1.5rem 0;
+    padding: 1.5rem 1rem;
     margin-bottom: 1rem;
+    overflow: hidden;
   }
 
   .header-content {
