@@ -184,19 +184,18 @@ function clearTag() {
 .articles-nav {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 0.5rem;
 }
 
 .article-link {
   display: block;
-  width: 100%;
   padding: 0.75rem;
-  border-left: 3px solid transparent;
   background: #f9f9f9;
   border: none;
   border-left: 3px solid transparent;
   border-radius: 4px;
-  text-align: left;
+  text-align: center;
   text-decoration: none;
   color: #333;
   font-family: inherit;

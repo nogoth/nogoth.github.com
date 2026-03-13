@@ -61,7 +61,6 @@ watch(() => props.slug, loadArticle)
 <style scoped>
 .article-container {
   max-width: 800px;
-  margin: 0 auto;
   padding: 2rem 1rem;
 }
 
@@ -212,7 +211,6 @@ watch(() => props.slug, loadArticle)
 
 .not-found {
   max-width: 800px;
-  margin: 0 auto;
   padding: 4rem 1rem;
   text-align: center;
 }

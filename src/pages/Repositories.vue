@@ -16,9 +16,25 @@
           <p>{{ error }}</p>
         </div>
 
-        <div v-else class="repo-list">
+        <template v-else>
+          <div v-if="activeLanguages.size" class="language-filter">
+            <span class="language-filter-label">Showing repositories using:</span>
+            <div class="language-filter-badges">
+              <div v-for="lang in activeLanguages" :key="lang" class="language-filter-badge">
+                {{ lang }}
+                <button class="language-filter-close" @click="toggleLanguage(lang)" title="Remove filter">
+                  ✕
+                </button>
+              </div>
+              <button v-if="activeLanguages.size > 1" class="language-filter-clear" @click="clearLanguages">
+                Clear all
+              </button>
+            </div>
+          </div>
+
+          <div v-if="filteredRepositories.length" class="repo-list">
           <article
-            v-for="repo in repositories"
+            v-for="repo in filteredRepositories"
             :key="repo.id"
             class="repo-card"
           >
@@ -35,24 +51,31 @@
 
             <div class="repo-footer">
               <div class="language-tags">
-                <span
+                <button
                   v-for="language in repo.languages"
                   :key="language"
                   class="language-tag"
+                  :class="{ active: activeLanguages.has(language) }"
+                  @click="toggleLanguage(language)"
                 >
                   {{ language }}
-                </span>
+                </button>
               </div>
             </div>
           </article>
-        </div>
+          </div>
+
+          <div v-if="!filteredRepositories.length" class="no-repos">
+            <p>No repositories found</p>
+          </div>
+        </template>
       </div>
     </main>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import SidebarNav from '@/components/SidebarNav.vue'
 
 interface GitHubRepoBase {
@@ -74,6 +97,28 @@ interface LanguagesResponse {
 const repositories = ref<GitHubRepo[]>([])
 const loading = ref(true)
 const error = ref<string | null>(null)
+const activeLanguages = ref<Set<string>>(new Set())
+
+const filteredRepositories = computed(() => {
+  if (!activeLanguages.value.size) return repositories.value
+  return repositories.value.filter(repo =>
+    [...activeLanguages.value].every(lang => repo.languages.includes(lang))
+  )
+})
+
+function toggleLanguage(language: string) {
+  const next = new Set(activeLanguages.value)
+  if (next.has(language)) {
+    next.delete(language)
+  } else {
+    next.add(language)
+  }
+  activeLanguages.value = next
+}
+
+function clearLanguages() {
+  activeLanguages.value = new Set()
+}
 
 async function fetchRepositories() {
   try {
@@ -286,11 +331,93 @@ onMounted(() => {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   transition: all 0.2s;
+  cursor: pointer;
+  font-family: inherit;
 }
 
 .language-tag:hover {
   background-color: var(--spaceman-action, #B7410E);
   transform: scale(1.05);
+}
+
+.language-tag.active {
+  background-color: var(--spaceman-action, #B7410E);
+  border-color: var(--spaceman-action, #B7410E);
+  box-shadow: 0 0 0 2px rgba(183, 65, 14, 0.3);
+}
+
+.language-filter {
+  margin-bottom: 1.5rem;
+  padding: 0.75rem;
+  background: rgba(75, 83, 32, 0.1);
+  border: 1px solid var(--spaceman-primary, #4B5320);
+  border-radius: 4px;
+}
+
+.language-filter-label {
+  display: block;
+  font-size: 0.85rem;
+  color: var(--spaceman-primary, #4B5320);
+  margin-bottom: 0.5rem;
+}
+
+.language-filter-badges {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.language-filter-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--spaceman-primary, #4B5320);
+  color: var(--spaceman-surface, #C2B280);
+  padding: 0.4rem 0.75rem;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.language-filter-clear {
+  background: none;
+  border: 1px solid var(--spaceman-primary, #4B5320);
+  color: var(--spaceman-primary, #4B5320);
+  padding: 0.4rem 0.75rem;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.language-filter-clear:hover {
+  background: var(--spaceman-primary, #4B5320);
+  color: var(--spaceman-surface, #C2B280);
+}
+
+.language-filter-close {
+  background: none;
+  border: none;
+  color: var(--spaceman-surface, #C2B280);
+  cursor: pointer;
+  font-size: 1rem;
+  padding: 0;
+  line-height: 1;
+  transition: opacity 0.2s;
+}
+
+.language-filter-close:hover {
+  opacity: 0.7;
+}
+
+.no-repos {
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #999;
+  font-size: 0.9rem;
 }
 
 @media (max-width: 1024px) {
