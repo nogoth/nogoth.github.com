@@ -260,9 +260,10 @@ function clearTag() {
   .articles-sidebar {
     border-right: none;
     border-bottom: 2px solid #eee;
-    padding: 1rem;
-    padding-right: 1rem;
+    padding: 1rem 0;
     margin-bottom: 1rem;
+    width: 100%;
+    overflow-x: hidden;
   }
 
   .articles-nav {
@@ -272,11 +273,12 @@ function clearTag() {
   }
 
   .article-link {
-    flex: 0 0 auto;
+    flex: 1 1 auto;
     padding: 0.5rem 1rem;
     border: 1px solid #ddd;
     margin-right: 0.5rem;
     margin-bottom: 0.5rem;
+    min-width: 0;
   }
 
   .article-link-date {
@@ -284,7 +286,7 @@ function clearTag() {
   }
 
   .article-main {
-    padding: 1rem;
+    padding: 1rem 0;
   }
 }
 </style>

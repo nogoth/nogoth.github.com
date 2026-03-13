@@ -53,10 +53,14 @@ import { RouterLink } from 'vue-router'
   .sidebar-nav {
     flex-direction: column;
     gap: 0.75rem;
+    margin-bottom: 1rem;
   }
 
   .nav-button {
     width: 100%;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 </style>

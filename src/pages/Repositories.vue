@@ -443,13 +443,12 @@ onMounted(() => {
   .articles-sidebar {
     border-right: none;
     border-bottom: 2px solid #eee;
-    padding: 1rem;
-    padding-right: 1rem;
+    padding: 1rem 0;
     margin-bottom: 1rem;
   }
 
   .repo-main {
-    padding: 1rem;
+    padding: 1rem 0;
   }
 
   .repo-container h1 {

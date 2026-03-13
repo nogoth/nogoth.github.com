@@ -16,6 +16,8 @@ body {
   line-height: 1.5;
   color: #333;
   background: #fff;
+  width: 100%;
+  overflow-x: hidden;
 }
 
 main {
@@ -155,6 +157,10 @@ hr {
 /* Responsive */
 
 @media (max-width: 768px) {
+  #app {
+    padding: 0 1rem;
+  }
+
   h1 {
     font-size: 1.8rem;
   }

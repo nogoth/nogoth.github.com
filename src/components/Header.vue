@@ -27,6 +27,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .logo {
@@ -60,9 +62,17 @@
 }
 
 @media (max-width: 768px) {
+  .header {
+    padding: 1.5rem 0;
+    margin-bottom: 1rem;
+  }
+
   .header-content {
     flex-direction: column;
     gap: 1rem;
+    max-width: none;
+    padding: 0;
+    margin: 0;
   }
 
   .logo {
