@@ -9,10 +9,7 @@
   ```bash
   npx @playwright/cli open http://localhost:5173 --browser=firefox
   ```
-- **Install Firefox first** if not already cached:
-  ```bash
-  npx playwright install firefox
-  ```
+- **Firefox is already installed.** Do NOT run `npx playwright install firefox` again — it's cached and ready.
 
 ### Common Gotchas
 
